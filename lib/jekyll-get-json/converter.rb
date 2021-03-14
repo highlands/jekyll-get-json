@@ -22,7 +22,12 @@ module JekyllGetJson
       config.each do |d|
         begin
           target = site.data[d['data']]
-          source = JSON.load(URI.open(d['json']))
+          if d['headers']
+            headers = d['headers'].map{|k,v| [k, eval("\""+v+"\"")] }.to_h
+            source = JSON.load(URI.open(d['json'], headers))
+          else
+            source = JSON.load(URI.open(d['json']))
+          end
 
           if target
             target.deep_merge(source)

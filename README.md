@@ -28,6 +28,8 @@ And you put the following into your `_config.yml` file:
 jekyll_get_json:
   - data: foo
     json: 'https://example.com/data.json'
+    headers:
+      Authorization: "Bearer #{ENV['API_TOKEN']}"
 ```
 Then in your Jekyll site you will be able to use:
 ```
